@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Attendance Tracking</title>
+  <style>
+    /* CSS styles for the pages */
+    /* ... */
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    .absent {
+      background-color: #ffcccc;
+    }
+    .present {
+      background-color: #ccffcc;
+    }
+  </style>
+</head>
+<body>
+  <div id="registrationPage">
+    <h2>Registration</h2>
+    <form id="registrationForm">
+      <label for="username">Username:</label>
+      <input type="text" id="username" required>
+      <label for="password">Password:</label>
+      <input type="password" id="password" required>
+      <button type="submit">Register</button>
+    </form>
+  </div>
+
+  <div id="loginPage" style="display: none;">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <label for="username">Username:</label>
+      <input type="text" id="username" required>
+      <label for="password">Password:</label>
+      <input type="password" id="password" required>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <div id="attendancePage" style="display: none;">
+    <h2>Record Attendance</h2>
+    <table id="attendanceTable">
+      <tr>
+        <th>Student ID</th>
+        <th>Student Name</th>
+        <th>Attendance</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Hongirana</td>
+        <td>
+          <select onchange="recordAttendance(this)">
+            <option value="" disabled selected>Select</option>
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Vaishnavi</td>
+        <td>
+          <select onchange="recordAttendance(this)">
+            <option value="" disabled selected>Select</option>
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Moksha</td>
+        <td>
+          <select onchange="recordAttendance(this)">
+            <option value="" disabled selected>Select</option>
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Aish</td>
+        <td>
+          <select onchange="recordAttendance(this)">
+            <option value="" disabled selected>Select</option>
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+          </select>
+        </td>
+      </tr>
+     <tr>
+        <td>5</td>
+        <td>Sanjana</td>
+        <td>
+          <select onchange="recordAttendance(this)">
+            <option value="" disabled selected>Select</option>
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+          </select>
+        </td>
+      </tr>
+    <tr>
+        <td>6</td>
+        <td>Hiti</td>
+        <td>
+          <select onchange="recordAttendance(this)">
+            <option value="" disabled selected>Select</option>
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>Keerthana</td>
+        <td>
+          <select onchange="recordAttendance(this)">
+            <option value="" disabled selected>Select</option>
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+          </select>
+        </td>
+      </tr>
+      <td>8</td>
+        <td>Nayana</td>
+        <td>
+          <select onchange="recordAttendance(this)">
+            <option value="" disabled selected>Select</option>
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+          </select>
+        </td>
+      </tr>
+      <td>9</td>
+        <td>Madu</td>
+        <td>
+          <select onchange="recordAttendance(this)">
+            <option value="" disabled selected>Select</option>
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+          </select>
+        </td>
+      </tr>
+      <td>10</td>
+        <td>Tabu</td>
+        <td>
+          <select onchange="recordAttendance(this)">
+            <option value="" disabled selected>Select</option>
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+          </select>
+        </td>
+      </tr>
+      <td>11</td>
+        <td>Tuba</td>
+        <td>
+          <select onchange="recordAttendance(this)">
+            <option value="" disabled selected>Select</option>
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+          </select>
+        </td>
+      </tr>
+      <td>12</td>
+        <td>vibi</td>
+        <td>
+          <select onchange="recordAttendance(this)">
+            <option value="" disabled selected>Select</option>
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+          </select>
+        </td>
+      </tr>
+      <td>13</td>
+        <td>Sakshi</td>
+        <td>
+          <select onchange="recordAttendance(this)">
+            <option value="" disabled selected>Select</option>
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+          </select>
+        </td>
+      </tr>
+      <!-- Add rows for other students -->
+    </table>
+
+    <div id="summary">
+      <p>Absent: <span id="absentCount">0</span></p>
+      <p>Present: <span id="presentCount">0</span></p>
+    </div>
+  </div>
+
+  <script>
+    // Registration page
+    document.getElementById("registrationForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent form submission
+
+      // Get the entered username and password
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+
+      // Perform registration logic (you may use backend or store in local storage for simplicity)
+
+      // Example: Store in local storage
+      localStorage.setItem("username", username);
+      localStorage.setItem("password", password);
+
+      // Hide registration page and show login page
+      document.getElementById("registrationPage").style.display = "none";
+      document.getElementById("loginPage").style.display = "block";
+    });
+
+    // Login page
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent form submission
+
+      // Get the entered username and password
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+
+      // Perform login logic (you may use backend or retrieve from local storage for simplicity)
+
+      // Example: Retrieve from local storage
+      var storedUsername = localStorage.getItem("username");
+      var storedPassword = localStorage.getItem("password");
+
+      if (username === storedUsername && password === storedPassword) {
+        // Hide login page and show attendance recording page
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("attendancePage").style.display = "block";
+      } else {
+        alert("Invalid username or password.");
+      }
+    });
+
+    // Attendance recording function
+    function recordAttendance(selectElement) {
+      var selectedOption = selectElement.value;
+      var attendanceCell = selectElement.parentNode;
+
+      if (selectedOption === "Present") {
+        attendanceCell.className = "present";
+      } else if (selectedOption === "Absent") {
+        attendanceCell.className = "absent";
+      }
+
+      // Update summary counts
+      var absentCount = document.querySelectorAll('.absent').length;
+      var presentCount = document.querySelectorAll('.present').length;
+
+      document.getElementById("absentCount").textContent = absentCount;
+      document.getElementById("presentCount").textContent = presentCount;
+    }
+  </script>
+</body>
+</html>
+
+
